@@ -1,4 +1,4 @@
-# 🚀 나만의 CI/CD 파이프라인 만들기
+# 🚀 CI/CD 파이프라인 기초 다지기 실습
 
 > Shell Script + inotifywait를 활용한 자동 빌드/배포 실습  
 > Windows(Git Bash) → Spring Boot 빌드 → Ubuntu VM 자동 배포
@@ -19,19 +19,7 @@
 
 ## 🏗️ 전체 아키텍처
 
-```
-[Windows - Git Bash]                         [Ubuntu VM]
-┌─────────────────────────┐                 ┌──────────────────────────┐
-│                         │                 │                          │
-│  1. 코드 수정            │                 │  6. inotifywait 감지      │
-│  2. src/ 해시 변경 감지  │                 │     (close_write 이벤트)  │
-│  3. gradlew bootJar     │                 │  7. 기존 프로세스 kill     │
-│  4. app.jar 생성         │    scp 전송     │  8. 새 jar 실행 (nohup)   │
-│  5. scp -P 2015  ───────┼────────────────▶│  9. PID 파일 저장         │
-│                         │                 │  10. 서비스 정상 운영 ✅   │
-└─────────────────────────┘                 └──────────────────────────┘
-      watch-and-deploy.sh                      watch-and-restart.sh
-```
+![아키텍쳐](img/cicd_pipeline_diagram.svg)
 
 ---
 
